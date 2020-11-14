@@ -1,0 +1,79 @@
+body            { font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif; background-color: #87afca; padding:5%}
+a, h1, h2       { text-align:center;color: #377ba8; }
+h1             { border-bottom: 2px solid #eee; font-size: 2em; }
+
+.body-wrapper{
+background-color:white; 
+padding:2%; 
+border-radius:25px;
+}
+
+thead input {
+        width: 100%;
+    }
+
+table.dataframe, .dataframe th, .dataframe td {
+  border: none;
+  border-bottom: 1px solid #C8C8C8;
+  border-collapse: collapse;
+  text-align:left;
+  padding: 5px;
+  margin-bottom: 40px;
+  font-size: 0.9em;
+}
+
+th {
+    background-color: #377ba8;
+    color: white;
+}
+
+.dataframe tr:hover
+{
+  background-color: #e8e8e8;
+}
+
+th:hover, th input:focus
+{
+    border: white;
+    background-color: #87afca;
+}
+
+.selectbox{
+ float:left;
+ text-align:right;
+ margin:0px auto 0px auto;
+ color: #377ba8;
+ font-size: 1em;
+}
+
+.chkbox{
+   float:left;  
+   padding:10px;
+}
+
+.wrapper table { white-space: nowrap }
+
+.printbutton
+{
+background-color: #377ba8;
+display: inline-block;
+text-decoration: none;
+color:white;
+padding: 10px 10px;
+font-size:0.9em;
+border: none;
+font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+} 
+
+.printbutton:hover
+{
+  border: white;
+  background-color: #87afca;
+
+}
+
+.icon-button:hover
+{
+  transform:scale(1.1);
+}
+

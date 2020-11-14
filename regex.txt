@@ -1,0 +1,10 @@
+REGEX
+
+^(?!Chennai)- not Chennai
+^(?!Chennai|Pondy)- not Chennai or Pondy
+[5-9] - Number greater than 4 is present in string
+^1[5-9][0-9] - greater than or equal to 150
+^8[1-9]	- greater than 80
+^[0-7][0-9] - less than 80
+^$ - Emply fields
+^\S - Non-Empty fields

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<title>Report App</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/fixheader.css') }}">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/table.css') }}">
+
+<body>
+<div class="body-wrapper">
+<h1> {{title}} </h1>
+<div class="selectbox">
+<input type="checkbox" name="Select All" checked="true" id="selectAll"> SELECT ALL 
+</div>
+<br>
+<div id="grpChkBox">
+  <table><tr>
+ {% for col in colnames %}
+  <td><input type="checkbox" name={{colnames[loop.index-1]}} id="{{loop.index}}"> {{colnames[loop.index-1]}}</td>
+    {% if loop.index% 5 ==0 %}
+    </tr><tr>
+    {% endif %}
+  {% endfor %}
+  </tr>
+  </table>
+</div>
+<br><br>
+<div class="wrapper">
+ {{table|safe}}
+</div>
+<input type='text' id='title' placeholder="Enter Heading">
+<input type='text' id='subtitle' placeholder="Enter Sub-Heading">
+</div>
+ </body>
+                
+<script src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
+<script src="{{ url_for('static', filename='js/datatable.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/datatable.fixheader.js') }}"></script>
+<script src="{{ url_for('static', filename='js/datatable.buttons.js') }}"></script>
+<script src="{{ url_for('static', filename='js/button.print.min.js') }}"></script>
+
+  
+<script language="javascript" type="text/javascript">  
+ var allCols=[]
+ 
+$( "table thead tr th" ).each(function( i ) {
+     allCols.push(i);
+});  
+
+
+
+$(document).ready(function() {
+    //var displayCols=[]
+
+$('#table1').removeAttr('hidden');
+
+    // Setup - add a text input to each footer cell
+    $('#table1 thead tr').clone(true).appendTo( '#table1 thead' );
+    $('#table1 thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        //displayCols.push(i);
+       
+        $(this).html( '<input type="text" id="t'+i+'" placeholder="Search '+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value,true ,true )
+                    .draw();
+            }
+        } );
+    } );
+
+
+    var $chk = $("#grpChkBox input:checkbox"); // cache the selector
+    console.log(allCols);
+    
+    $chk.prop('checked', true);
+  
+    $chk.click(function () {
+         var id = $(this).attr('id');
+        
+         if($(this).prop("checked") == false){
+               
+                table.column(id).visible(false);
+                //displayCols.splice(displayCols.indexOf( parseInt(id)),1);
+            } else{
+                table.column(id).visible(true);
+                table.column(0).visible(true);
+                //displayCols.push( parseInt(id));
+
+            }
+            console.log(allCols);
+            console.log(id);
+    });
+
+
+    $("#selectAll").click(function () {
+        if ($("#selectAll").prop("checked") == true){
+
+            $chk.prop('checked', true); // check all checkboxes when page loads
+             table.columns(allCols).visible(true);
+             //displayCols=allCols;
+         }
+        else{
+            $chk.prop('checked', false);
+             table.columns(allCols).visible(false);
+             //displayCols=[];
+         }
+    });
+        
+        var table = $('#table1').DataTable( {
+        "dom": '<"top"lf>rt<"bottom"Bip><"clear">',
+        buttons: [
+        {
+             extend: 'print',
+             text:'Generate Report',
+             title: function () { return $('#title').val(); },
+             customize: function ( doc ) {
+                    $(doc.document.body).find('h1').css('text-align', 'center')},
+             messageTop: function () { return '<div align=\'center\' style=\'font-size:25px\'>'+$('#subtitle').val();+'</div>' },
+             className: 'printbutton',
+             exportOptions: {
+                 columns: ':visible'
+                  },
+        }
+        ],
+        orderCellsTop: true,
+        fixedHeader: true,
+        scrollX:true,
+    } );
+    
+    table.on('order.dt search.dt', function () {
+     table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+           cell.innerHTML = i+1;
+           table.cell(cell).invalidate('dom');
+     });
+}).draw();
+
+
+
+} );
+
+
+
+
+</script> 
+ 

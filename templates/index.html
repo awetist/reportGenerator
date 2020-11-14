@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+<title>Report App</title>
+<body>
+<div class="body-wrapper">
+<div align="center" >
+<h1> Report Generator </h1>
+<div style="padding:5%">
+<img class="icon-button" src="{{ url_for('static', filename='icon/icon.png') }}" width="20%" onclick="openUploadFile()">
+
+<form action="{{ url_for('show_tables') }}" method="post">
+<input type="file" id="myFile" onchange="submitForm()" name="filename" hidden="true" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" autocomplete="off">
+<input type="submit" hidden="true" value="Show File" id="submit" >
+</form>
+<p style="color:#377ba8">**Make sure the excel file is present in the uploads folder</p>
+</div>
+</div>
+</div>
+
+</body>
+
+<script>
+function openUploadFile()
+{
+document.getElementById("myFile").click();
+console.log(document.getElementById("myFile").value);
+}
+
+
+function submitForm()
+{
+	document.getElementById("submit").click();
+}
+</script>
+
